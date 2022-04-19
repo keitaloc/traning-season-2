@@ -6,14 +6,17 @@ class Input extends React.Component {
     state={
         data:[
             {
+                id:"1",
                 name:'Truong',
                 age: '22'
             },
             {
+                id:"2",
                 name:'Hoang',
                 age: '333'
             },
             {
+                id:"3",
                 name:'Long',
                 age:'44'
             }
@@ -26,7 +29,11 @@ class Input extends React.Component {
         })
     }
     handleDeleteTodo = (todo) =>{
-
+        let currentTodo = this.state.data
+        currentTodo = currentTodo.filter(item=>item.id !== todo.id)
+        this.setState({
+            data:currentTodo
+        })
     }
     render(){
         let {data} = this.state;
@@ -34,7 +41,7 @@ class Input extends React.Component {
         return(
            <>
             <div className="render">
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -43,30 +50,34 @@ class Input extends React.Component {
                         <th scope="col">Sửa Xóa</th>
                     </tr>
                 </thead>
-            </table>                  
+            </table>   
+            <tbody>               
                 {data && data.length > 0 &&
                     data.map((item,index)=>{
                         return( 
-                            <tbody>
+                            
                                 <tr>
-                                    <th class="pr-5" scope="row">{index+1}</th>
-                                    <td>{item.name}</td>
-                                    <td>{item.age}</td>
-                                    <button
+                                    <th className="stt" scope="row">{index+1}</th>
+                                    <td className="name">{item.name}</td>
+                                    <td className="age">{item.age}</td>
+                                    <button className="xoa"
                                         onClick={()=>this.handleDeleteTodo(item)}
                                     >Xóa</button>
+                                    <button
+
+                                    >Sửa</button>
                                 </tr> 
-                            </tbody>
+                            
                              
                         )
                     })
                 }
-                
+            </tbody>
             </div>
            <AddInput addNewTodo={this.addNewTodo} />
            </>
         )
     }
-}
+}  
 
 export default Input;

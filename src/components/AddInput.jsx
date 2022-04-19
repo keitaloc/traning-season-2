@@ -2,6 +2,7 @@ import React from 'react';
 
 class AddInput extends React.Component {
     state={
+        id:'',
         name:'',
         age:''
     }
@@ -18,6 +19,7 @@ class AddInput extends React.Component {
     }
     handleAddTodo = () => {
         let todo = {
+            id: Math.floor(Math.random()*1000),
             name:this.state.name,
             age:this.state.age,
         }
