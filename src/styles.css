@@ -1,0 +1,9 @@
+.panel {
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.panel-warning {
+    border-color: #faebcc;
+}
+
