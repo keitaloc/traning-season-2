@@ -25,10 +25,10 @@ export default class AddUser extends React.Component {
     render() {
         return (
             <div className="container mt-5">
-                <h1>Add user</h1>
+                <h1 className="text-center">Add user</h1>
                 <input value={this.state.name} className="form-control" type="text" placeholder="Enter name" onChange={this.onChangeName}/>
                 <input value={this.state.age} className="form-control" type="text" placeholder="Enter age" onChange={this.onChangeAge}/>
-                <button onClick={this.submit} className="btn btn-primary text-center mt-2">Add</button>
+                <button onClick={this.submit} className="btn btn-primary text-center mt-2 w-100">Add</button>
             </div>
         )
     }

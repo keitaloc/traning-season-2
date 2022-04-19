@@ -4,19 +4,19 @@ export default class EditUser extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            newName : this.props.dataEdit.data[this.props.dataEdit.indexEdit].name,
-            newAge: this.props.dataEdit.data[this.props.dataEdit.indexEdit].age,
+            name : this.props.dataEdit.data[this.props.dataEdit.indexEdit].name,
+            age: this.props.dataEdit.data[this.props.dataEdit.indexEdit].age,
         }
     }
     onChangeName = (e) => {
-        this.setState({newName: e.target.value})
+        this.setState({name: e.target.value})
     }
     onChangeAge = (e) => {
-        this.setState({newAge: e.target.value})
+        this.setState({age: e.target.value})
     }
     edit = (e) => {
         e.preventDefault()
-        if(this.state.newName.length !== 0 && this.state.newAge.length !== 0) {
+        if(this.state.name.length !== 0 && this.state.age.length !== 0) {
             this.props.changeVlue(this.state)
         }
     }
@@ -24,10 +24,10 @@ export default class EditUser extends React.Component {
         // let idEdit = this.props.dataEdit.indexEdit;
         return (
             <div className="container mt-5">
-                <h1>Edit user</h1>
-                <input value={this.state.newName}  className="form-control" type="text" placeholder="Enter name" onChange={this.onChangeName}/>
-                <input value= {this.state.newAge} className="form-control" type="text" placeholder="Enter age" onChange={this.onChangeAge}/>
-                <button onClick={this.edit} className="btn btn-primary text-center mt-2">Edit</button>
+                <h1 className="text-center">Edit user</h1>
+                <input value={this.state.name}  className="form-control" type="text" placeholder="Enter name" onChange={this.onChangeName}/>
+                <input value= {this.state.age} className="form-control" type="text" placeholder="Enter age" onChange={this.onChangeAge}/>
+                <button onClick={this.edit} className="btn btn-primary text-center mt-2 w-100">Edit</button>
             </div>
         )
     }

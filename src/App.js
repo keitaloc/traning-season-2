@@ -18,14 +18,10 @@ class App extends Component {
     this.setState({ data: newContent })
   }
   changeVlue = (value) => {
-    console.log(value)
-    if (this.state.indexEdit) {
-      const newContent = [...this.state.data]
-      this.setState({ data: newContent })
-    }
-    // this.setState({data: this.state.data})
-
-
+    let newContent = [...this.state.data];
+    newContent[this.state.indexEdit] = value
+    this.setState({ data: newContent })
+    this.setState({showEdit: false, showAdd: true})
   }
   removeUser = (index) => {
     const newContent = [...this.state.data]
