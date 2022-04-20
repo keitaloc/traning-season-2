@@ -32,7 +32,7 @@ export default class EditUser extends React.Component {
     }
     validateAge = () => {
         const checkAge = this.state.age;
-        if (isNaN() || checkAge < 1 || checkAge > 80) {    
+        if (isNaN(checkAge) || checkAge < 1 || checkAge > 80) {    
             this.setState({errorAge: true})
         }
         else {

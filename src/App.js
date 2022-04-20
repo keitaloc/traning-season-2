@@ -39,7 +39,7 @@ class App extends Component {
     this.setState({showAdd:false})
   }
   showAdd = () => {
-    this.setState({showAdd:true})
+    this.setState({showAdd:true, showEdit:false})
   }
   render() {
     return (
