@@ -9,15 +9,14 @@ class App extends Component{
     super(props);
     this.state = {
       information: [],
-      isShowAdd : false,
+      isShowForm : true,
       infoUpdate: '',
       isShowUpdate: false
     }
   }
 
   onAdd = () => {
-    this.setState({isShowAdd: true});
-    this.setState({isShowUpdate: false})
+    this.setState({isShowForm: true});
   }
 
    randomId = () => {
@@ -32,14 +31,7 @@ class App extends Component{
       id: this.randomId(),
       ...data,
     };
-    let newInfo = [...this.state.information];
-    newInfo.push(newData);
-    this.setState({information: newInfo})
-    this.onCloseForm()
-  }
-
-  onCloseForm = () => {
-    this.setState({isShowAdd: false})
+    this.setState({information: [...this.state.information, newData]})
   }
 
   onDelete = (data) => {
@@ -53,22 +45,19 @@ class App extends Component{
 
   onUpdate = (id) => {
     let index = this.state.information.findIndex((x) => x.id === id);
-    console.log(index)
     let newInfo = [...this.state.information];
     let infoUpdate = newInfo[index];
-    this.setState({infoUpdate: infoUpdate})
-    this.setState({isShowUpdate: true});
-    this.setState({isShowAdd: false})
+    this.setState({...this.state, infoUpdate: infoUpdate, isShowForm: false})
   }
 
   onCloseFormUpdate = () => {
-    this.setState({isShowUpdate: false})
+    this.setState({isShowForm: true})
   }
 
-  onSubmitUpdate = (id, name, age) => {
+  onSubmitUpdate = (id, name, age, email) => {
     if (id) {
       let index = this.state.information.findIndex((x) => x.id === id);
-      this.state.information[index] = { id, name, age };
+      this.state.information[index] = { id, name, age, email };
       this.setState({infoUpdate: ''})
     }
     this.setState({information:this.state.information})
@@ -79,11 +68,12 @@ class App extends Component{
     return (
         <div className="container">
           <h1 className="text-center mt-4 h1">Manage Users</h1>
-          <div>
+          <div className="mt-2">
             <button className="btn btn-success" onClick={this.onAdd}>Add</button>
           </div>
-          {this.state.isShowAdd === true ? <AddInfo onSubmit={this.onSubmit} onCloseForm={this.onCloseForm}/> : ''}
-          {this.state.isShowUpdate === true ?<EditInfo onCloseFormUpdate={this.onCloseFormUpdate} infoUpdate={this.state.infoUpdate} onSubmitUpdate={this.onSubmitUpdate}/> : '' }
+          {this.state.isShowForm === true 
+          ? <AddInfo onSubmit={this.onSubmit} onCloseForm={this.onCloseForm}/> 
+          : <EditInfo onCloseFormUpdate={this.onCloseFormUpdate} infoUpdate={this.state.infoUpdate} onSubmitUpdate={this.onSubmitUpdate}/>}
           <ListInfo info={this.state.information} onDelete={this.onDelete} onUpdate={this.onUpdate} />
         </div>
     );

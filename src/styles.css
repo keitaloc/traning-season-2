@@ -1,9 +1,18 @@
 .panel {
     background-color: #fff;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    border: 2px solid transparent;
+    border-radius: 14px;
 }
 .panel-warning {
     border-color: #faebcc;
 }
 
+.color-selective-yellow{
+    color: #F8BB05;
+    cursor: pointer;
+}
+
+.color-red{
+    color: red;
+    cursor: pointer;
+}
