@@ -1,9 +1,11 @@
 import React from "react";
+import "../styles/add-user.css";
 
 export default class AddUser extends React.Component {
   state = {
     name: "",
     age: "",
+    email: "",
   };
 
   addName = (e) => {
@@ -18,53 +20,131 @@ export default class AddUser extends React.Component {
     });
   };
 
-  // block special key
-  blockSpecialKey = (e) => {
-    let regex = new RegExp("^[a-zA-z0-9]+$");
-    let key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-    if (!regex.test(key)) {
-      e.preventDefault();
+  addEmail = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+  };
+
+  notValidatedUserNameInput = (name) => {
+    console.log("name");
+    if (!this.state.name) {
+      alert("Have not insert name!");
       return false;
     }
+    if (
+      this.state.name.length > 30 ||
+      String(name).match(/[^\w]|_/g) ||
+      !String(name).match(/[^0-9]/g)
+    ) {
+      alert("No more 30 words or any numberic or any special characters");
+      return false;
+    }
+
+    return true;
+  };
+
+  //!BUG: can input "-" and "." symbol
+  notValidatedUserAgeInput = (age) => {
+    console.log("age");
+    // const inputName = document.getElementById("inputName");
+    // const validateNameForm = document.getElementById("validateNameForm");
+
+    // inputName.addEventListener("click", () => {
+    //   console.log("11111111111");
+    //   validateNameForm.style.visibility = "visible";
+    // });
+
+    if (!this.state.age) {
+      alert("Have not insert age!");
+      return false;
+    }
+    if (String(age).match(/[^0-9]/g)) {
+      alert("Accepted numberic only");
+      return false;
+    }
+    if (80 < this.state.age || this.state.age <= 0) {
+      alert("Input age between 1 and 80");
+      return false;
+    }
+
+    return true;
+  };
+
+  notValidatedUserEmailInput = (email) => {
+    console.log("email");
+    let regex =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (!String(email).toLowerCase().match(regex)) {
+      alert("invalid email");
+      return false;
+    }
+
+    return true;
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
+    let name = this.state.name;
+    let age = this.state.age;
+    let email = this.state.email;
+
     const inputName = document.getElementById("inputName");
-
     const inputAge = document.getElementById("inputAge");
+    const inputEmail = document.getElementById("inputEmail");
 
-    // condition
-    if (!inputName.value) {
-      alert("Have not insert name!");
+    // if (this.notValidatedUserNameInput(this.state.name, inputName)) {
+    //   console.log("name----");
+    //   inputName.value = "";
+    //   inputName.focus();
+    //   return;
+    // }
+
+    const isValidName = this.notValidatedUserNameInput(name);
+
+    if (!isValidName) {
+      inputName.value = "";
+      inputName.focus();
       return;
-    } else if (inputName.value.length > 25) {
-      alert("No more 25 words");
-      this.blockSpecialKey(e);
-      return;
+    } else {
+      inputAge.focus();
     }
 
-    if (!inputAge.value) {
-      alert("Have not insert age!");
+    const isValidAge = this.notValidatedUserAgeInput(age);
+    if (!isValidAge) {
+      inputAge.value = "";
+      inputAge.focus();
       return;
-    } else if (inputAge.value <= 0) {
-      alert("Age cannot less or equal to 0!");
-      return;
+    } else {
+      inputEmail.focus();
     }
 
+    const isValidEmail = this.notValidatedUserEmailInput(email);
+    if (!isValidEmail) {
+      inputEmail.value = "";
+      inputEmail.focus();
+      return;
+    } else {
+      inputName.focus();
+    }
+
+    // if (!name || !age || !email) return;
+
+    // add a new user
     this.props.addNewUser({
       id: Math.floor(Math.random() * 1000),
-      userName: this.state.name,
-      userAge: this.state.age,
+      userName: name,
+      userAge: age,
+      userEmail: email,
     });
 
-    //after added a new user
-    inputName.focus();
-
+    // set input form to empty
     this.setState({
       name: "",
       age: "",
+      email: "",
     });
   };
 
@@ -76,7 +156,7 @@ export default class AddUser extends React.Component {
         <div className="pt-5">
           <form onSubmit={(e) => this.handleSubmit(e)}>
             <input
-              className="form-control w-100"
+              className="form-control w-100 position-relative"
               name="name"
               type="text"
               value={this.state.name}
@@ -84,14 +164,32 @@ export default class AddUser extends React.Component {
               onChange={(e) => this.addName(e)}
               id="inputName"
             />
+            <div
+              className="position-absolute bg--1 invisible"
+              id="validateNameForm"
+            >
+              <div className="p-3 text-start">
+                <div>not allow any special characters</div>
+                <div>name cannot longer than 30 characters</div>
+              </div>
+            </div>
             <input
               className="form-control mt-3"
               name="age"
-              type="number"
+              type="text"
               value={this.state.age}
               placeholder="add user age"
               onChange={(e) => this.addAge(e)}
               id="inputAge"
+            />
+            <input
+              className="form-control mt-3"
+              name="age"
+              type="text"
+              value={this.state.email}
+              placeholder="add user email"
+              onChange={(e) => this.addEmail(e)}
+              id="inputEmail"
             />
 
             <button

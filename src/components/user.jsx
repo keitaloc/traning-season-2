@@ -1,8 +1,7 @@
 import React from "react";
-import "../styles/User.css";
+import "../styles/user.css";
 import UserInfo from "./UserInfo";
 import AddUser from "./AddUser";
-
 export default class User extends React.Component {
   state = {
     user: [],
@@ -17,18 +16,17 @@ export default class User extends React.Component {
   render() {
     return (
       <>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">User Name</th>
-              <th scope="col">User Age</th>
-            </tr>
-          </thead>
-          <tbody className="">
-            <UserInfo user={this.state.user} />
-          </tbody>
-        </table>
+        <div className="grid-5">
+          <h5>#</h5>
+          <h5>User Name</h5>
+          <h5>User Age</h5>
+          <h5>User Email</h5>
+          <h5>#</h5>
+        </div>
+        <div className="content">
+          <UserInfo user={this.state.user} />
+        </div>
+
         <AddUser addNewUser={this.addNewUser} />
       </>
     );

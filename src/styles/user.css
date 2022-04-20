@@ -1,3 +1,20 @@
 .w--4{
   width: 4rem;
 }
+
+.grid-5 {
+  display: grid;
+  grid-template-columns: 5% 25% 25% 30% 15%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.fa-user-pen:hover{
+  color: #5151d8
+}
+
+.fa-trash-can:hover{
+  color: #c23131;
+}
