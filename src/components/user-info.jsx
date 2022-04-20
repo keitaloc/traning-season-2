@@ -1,49 +1,83 @@
 import React from "react";
 
 export default class UserInfo extends React.Component {
+  // constructor(props) {
+  //   super(props);
+
+  //   this.state = {
+  //     user: props,
+  //   };
+  // }
+
   state = {
-    user: this.props.user,
-  };
+    user: this.props.user
+  }
 
   deleteUser = (id) => {
-    console.log("delete function");
-    this.props.user.map((item) => {
-      console.log(this.props.user);
-      return this.props.user.splice(item.id === id, 1);
-    });
+    const index = this.props.user.findIndex((item) => id === item.id);
 
-    // after deleted
+    this.props.user.splice(index, 1);
+
+    // after deleted, updated current user's list
     this.setState({
       user: [{ ...this.state.user }],
     });
   };
 
-  // updateUser = () => {
-  //   this.setState({
-  //     user: [...this.props.user],
-  //   });
-  // };
+  editUser = (id) => {
+    // const index = this.props.user.findIndex((item) => id === item.id);
+
+    const inputName = document.getElementById("inputName");
+
+    const inputAge = document.getElementById("inputAge");
+
+    this.props.user.map((user) => {
+      if (user.id === id) {
+        // set user's info to "" to get easy know which user is updating
+        user.userName = "";
+        user.userAge = "";
+
+        // click to edit btn
+        inputName.focus();
+
+        user.userName = inputName.value;
+        user.userAge = inputAge.value;
+
+        // change button content
+        // editBtn.innerHTML = "Save";
+
+        // update user list
+        this.setState({
+          user: [...this.state.user],
+        });
+
+        // set input form to empty
+        inputName.value = "";
+        inputAge.value = "";
+      }
+    });
+  };
 
   render() {
     const { user } = this.props;
 
-    console.log("user user user user");
-    console.log(this.props.user);
-
     return (
       <>
         {user.map((item, index) => {
-          console.log(item, index);
           return (
-            <tr className="lh--3 highlight" key={item.id}>
+            <tr className="lh--3" key={item.id}>
               <th scope="row">{index + 1}</th>
-              <td>{item.userName}</td>
-              <td>{item.userAge}</td>
-              <td className="btn btn-secondary text-dark ps-2 pe-2 w--4 ms-1 me-1">
+              <td id="name">{item.userName}</td>
+              <td id="age">{item.userAge}</td>
+              <td
+                onClick={() => this.editUser(item.id)}
+                className="btn btn-secondary text-dark ps-2 pe-2 w--4 ms-1 me-1 edit-btn"
+                id="editBtn"
+              >
                 Edit
               </td>
               <td
-                onClick={() => this.deleteUser(item.id, index)}
+                onClick={() => this.deleteUser(item.id)}
                 className="btn btn-danger text-dark w--4"
               >
                 Delete

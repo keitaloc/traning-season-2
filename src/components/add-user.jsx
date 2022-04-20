@@ -18,10 +18,40 @@ export default class AddUser extends React.Component {
     });
   };
 
+  // block special key
+  blockSpecialKey = (e) => {
+    let regex = new RegExp("^[a-zA-z0-9]+$");
+    let key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (!regex.test(key)) {
+      e.preventDefault();
+      return false;
+    }
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
 
-    // logic
+    const inputName = document.getElementById("inputName");
+
+    const inputAge = document.getElementById("inputAge");
+
+    // condition
+    if (!inputName.value) {
+      alert("Have not insert name!");
+      return;
+    } else if (inputName.value.length > 25) {
+      alert("No more 25 words");
+      this.blockSpecialKey(e);
+      return;
+    }
+
+    if (!inputAge.value) {
+      alert("Have not insert age!");
+      return;
+    } else if (inputAge.value <= 0) {
+      alert("Age cannot less or equal to 0!");
+      return;
+    }
 
     this.props.addNewUser({
       id: Math.floor(Math.random() * 1000),
@@ -29,11 +59,13 @@ export default class AddUser extends React.Component {
       userAge: this.state.age,
     });
 
-    //after add a new user
-    // this.state({
-    //   name: "",
-    //   age: "",
-    // });
+    //after added a new user
+    inputName.focus();
+
+    this.setState({
+      name: "",
+      age: "",
+    });
   };
 
   render() {
@@ -50,19 +82,22 @@ export default class AddUser extends React.Component {
               value={this.state.name}
               placeholder="add user name"
               onChange={(e) => this.addName(e)}
+              id="inputName"
             />
             <input
               className="form-control mt-3"
               name="age"
-              type="text"
+              type="number"
               value={this.state.age}
               placeholder="add user age"
               onChange={(e) => this.addAge(e)}
+              id="inputAge"
             />
 
             <button
               className="add-btn mt-3 w-100 btn btn-secondary border-0"
               type="submit"
+              id="addBtn"
             >
               ADD
             </button>

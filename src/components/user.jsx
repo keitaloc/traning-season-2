@@ -5,15 +5,12 @@ import AddUser from "./add-user";
 
 export default class User extends React.Component {
   state = {
-    user: [{ id: '', userName: '', userAge: '' }],
+    user: [],
   };
 
   addNewUser = (newUser) => {
-    console.log("11111111");
-    console.log("new user: ",newUser);
     this.setState({
       user: [...this.state.user, newUser],
-      // user: this.state.user.push(newUser),
     });
   };
 

@@ -27,6 +27,10 @@
 .App-link {
   color: #61dafb;
 }
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  appearance: none;
+}
 
 @keyframes App-logo-spin {
   from {
