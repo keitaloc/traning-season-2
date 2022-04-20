@@ -1,7 +1,10 @@
 .App {
   text-align: center;
 }
-
+.Add {
+  width: 150px;
+  margin: 0 auto;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

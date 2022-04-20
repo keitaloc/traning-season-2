@@ -1,27 +1,28 @@
 import { Component } from "react";
-import AddUser from "./Components/addUser";
-import EditUser from "./Components/edit";
-import ManageUser from "./Components/manageUser";
+import AddUser from "./Components/AddUser";
+import EditUser from "./Components/Edit";
+import ManageUser from "./Components/ManageUser";
+import "./App.css"
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
-      showAdd: true,
+      showAdd: false,
       showEdit: false,
       indexEdit : ''
     }
   }
   onAdd = (Info) => {
-    let newContent = [...this.state.data];
-    newContent.push(Info);
+    let newContent = [...this.state.data, Info];
     this.setState({ data: newContent })
+    this.setState({showAdd:false})
   }
-  changeVlue = (value) => {
+  changeValue = (value) => {
     let newContent = [...this.state.data];
     newContent[this.state.indexEdit] = value
     this.setState({ data: newContent })
-    this.setState({showEdit: false, showAdd: true})
+    this.setState({showEdit: false})
   }
   removeUser = (index) => {
     const newContent = [...this.state.data]
@@ -29,18 +30,30 @@ class App extends Component {
     this.setState({ data: newContent })
   }
   onEdit = (index) => {
-    this.setState({showEdit:true, showAdd:false, indexEdit:index})
+    this.setState({showEdit:true, showAdd:false,  indexEdit:index})
+  }
+  backManager = () => {
+    this.setState({showEdit:false})
+  }
+  userBack = () => {
+    this.setState({showAdd:false})
+  }
+  showAdd = () => {
+    this.setState({showAdd:true})
   }
   render() {
     return (
       <div>
-        <ManageUser 
+        <ManageUser
           onSubmitEdit={this.onEdit} 
           onDelete={this.removeUser} 
           data={this.state.data} 
-        />
-        {this.state.showAdd ? <AddUser onSubmit={this.onAdd} /> :  ''}
-        {this.state.showEdit ? <EditUser changeVlue = {this.changeVlue} dataEdit = {this.state} /> : ''}
+          />
+        <div className="container">
+          <button onClick={this.showAdd} className="btn btn-secondary Add">Add</button>
+        </div>
+        {this.state.showAdd && <AddUser backUser={this.userBack} onSubmit={this.onAdd} />}
+        {this.state.showEdit && <EditUser backUser= {this.backManager} changeVlue = {this.changeValue} dataEdit = {this.state} />}
       </div>
     )
   }

@@ -1,0 +1,18 @@
+.main {
+    margin: 0 auto;
+    width: 80%;
+    padding: 30px;
+    color: white;
+    background-color: #12121f;
+    border-radius: 20px;
+    position: relative;
+}
+p {
+    color:  red;
+}
+.icon {
+    width: 100px;
+    position: absolute;
+    right: -70px;
+    top: 10px;
+}
