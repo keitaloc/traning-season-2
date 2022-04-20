@@ -1,6 +1,6 @@
 import "./App.css";
-import User from "./components/user";
-import AddUSer from "./components/add-user";
+import User from "./components/User";
+import AddUSer from "./components/AddUser";
 
 function App() {
   return (

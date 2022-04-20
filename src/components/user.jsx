@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/user.css";
-import UserInfo from "./user-info";
-import AddUser from "./add-user";
+import "../styles/User.css";
+import UserInfo from "./UserInfo";
+import AddUser from "./AddUser";
 
 export default class User extends React.Component {
   state = {
