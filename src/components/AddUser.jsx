@@ -26,7 +26,7 @@ export default class AddUser extends React.Component {
     });
   };
 
-  notValidatedUserNameInput = (name) => {
+  isValidatedUserNameInput = (name) => {
     console.log("name");
     if (!this.state.name) {
       alert("Have not insert name!");
@@ -45,7 +45,7 @@ export default class AddUser extends React.Component {
   };
 
   //!BUG: can input "-" and "." symbol
-  notValidatedUserAgeInput = (age) => {
+  isValidatedUserAgeInput = (age) => {
     console.log("age");
     // const inputName = document.getElementById("inputName");
     // const validateNameForm = document.getElementById("validateNameForm");
@@ -71,7 +71,7 @@ export default class AddUser extends React.Component {
     return true;
   };
 
-  notValidatedUserEmailInput = (email) => {
+  isValidatedUserEmailInput = (email) => {
     console.log("email");
     let regex =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -83,6 +83,8 @@ export default class AddUser extends React.Component {
 
     return true;
   };
+
+  isEmailExisted = () => {};
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -102,7 +104,7 @@ export default class AddUser extends React.Component {
     //   return;
     // }
 
-    const isValidName = this.notValidatedUserNameInput(name);
+    const isValidName = this.isValidatedUserNameInput(name);
 
     if (!isValidName) {
       inputName.value = "";
@@ -112,7 +114,7 @@ export default class AddUser extends React.Component {
       inputAge.focus();
     }
 
-    const isValidAge = this.notValidatedUserAgeInput(age);
+    const isValidAge = this.isValidatedUserAgeInput(age);
     if (!isValidAge) {
       inputAge.value = "";
       inputAge.focus();
@@ -121,7 +123,7 @@ export default class AddUser extends React.Component {
       inputEmail.focus();
     }
 
-    const isValidEmail = this.notValidatedUserEmailInput(email);
+    const isValidEmail = this.isValidatedUserEmailInput(email);
     if (!isValidEmail) {
       inputEmail.value = "";
       inputEmail.focus();
