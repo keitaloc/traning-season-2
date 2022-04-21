@@ -1,12 +1,17 @@
-import React from 'react';
+import React from 'react'
 
-class AddInput extends React.Component {
+
+class FormInput extends React.Component {
     state={
-        id:'',
-        name:'',
-        age:''
+        listTodo:[
+            {
+                name:'',
+                age: '',
+                gmail:""
+            }
+        ],
+        editTodo:{}
     }
-
     hanldeOnchangeName =(e) => {
         this.setState({
             name:e.target.value
@@ -17,41 +22,73 @@ class AddInput extends React.Component {
             age:e.target.value
         })
     }
-    handleAddTodo = () => {
+    hanldeOnchangeGmail =(e) => {
+        this.setState({
+            gmail:e.target.value
+        })
+    }
+    
+    handleAddTodo = (e) => {    
+        e.preventDefault();
+
+        const checkName = this.state.name
+        const checkAge = this.state.age
+        const checkMail = this.state.gmail
+    
+        const check = (email) => {
+            const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return regex.test(String(email).toLowerCase());
+        }
+        if(!checkName || checkName.length > 30 ){
+            alert("Name")
+            return;
+        }else if(!checkAge || checkAge > 80){
+            alert("Age")
+            return;
+        }else if(!check(checkMail) ){
+            alert("Emial")
+            return;
+        }
+
         let todo = {
             id: Math.floor(Math.random()*1000),
             name:this.state.name,
             age:this.state.age,
+            gmail:this.state.gmail,
         }
         this.props.addNewTodo(todo);
+        
     }
-    render() {
-        let {name,age} = this.state;
-        return(
-            <>
-                <div className="input">
-                    <label htmlFor="">Name:</label>
 
-                    <input type="text"
-                        value={name}
-                        onChange={(e)=>this.hanldeOnchangeName(e)}
-                        />
+   render() {
+       let {name,age,gmail} = this.state.listTodo
+    return (
+        <div>
+    
+            <form onSubmit={(e)=>this.handleAddTodo(e)}>
+                <input type="text" placeholder="name" 
+                 value={name} 
+                 onChange={(e)=>this.hanldeOnchangeName(e)}
+                 />      
+                
+                <input type="text" placeholder="age"
+                value={age}
+                onChange={(e)=>this.hanldeOnchangeAge(e)}
+                />    
 
-                    <label htmlFor="">Age:</label>
-
-                    <input type="text" 
-                        value={age}
-                        onChange={(e)=>this.hanldeOnchangeAge(e)}
-                    />
-
-
-                    <button
-                        onClick= {()=>this.handleAddTodo()}
-                    >Add</button>
-                </div>
-            </>
-        )
-    }
+                <input type="email" placeholder="gmail" 
+                    value={gmail}
+                    onChange={(e)=>this.hanldeOnchangeGmail(e)}
+                />  
+        
+                <button type="submit">Create</button>
+             </form>
+    
+            
+        </div>
+      )
+   }
+  
 }
 
-export default AddInput;
+export default FormInput

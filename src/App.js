@@ -1,11 +1,12 @@
-import Input from "./components/Input";
+import List from "./components/List";
 
 
 
 function App() {
   return (
-    <div className="container">
-      <Input />
+    <div className="App">
+      <h1>React Form</h1>
+      <List />
     </div>
   );
 }
