@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import getLocalStorageData from "../services/getLocalStorage";
 import TaskList from "./TaskList";
 
 const Form = ({ isOpen, openForm, date }) => {
-  const calendar = useSelector((state) => state.calendarReducer);
-
   const [input, setInput] = useState("");
 
   if (!date) {
@@ -57,9 +54,7 @@ const Form = ({ isOpen, openForm, date }) => {
     setInput("");
   };
 
-  const showListTaskOnForm = () => {
-    
-  }
+  const showListTaskOnForm = () => {};
 
   return (
     <>
