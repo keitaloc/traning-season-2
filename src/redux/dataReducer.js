@@ -1,7 +1,4 @@
-const data = {
-  id: [],
-  list: [],
-};
+const data = {};
 
 const dataReducer = (state = data, action) => {
   switch (state.type) {

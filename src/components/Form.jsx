@@ -1,8 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Form = ({ isOpen, openForm }) => {
+const Form = ({ isOpen, openForm, date }) => {
   const calendar = useSelector((state) => state.calendarReducer);
+
+  console.log("----form----");
+
 
   return (
     <>
@@ -15,7 +18,7 @@ const Form = ({ isOpen, openForm }) => {
           >
             <div className="d-flex justify-content-between align-items-center pt-1 pb-1">
               <p className="dmy" id="dayOnForm">
-                {calendar.date.toDateString()}
+                {date}
               </p>
               <i
                 className="btn scale text-white fa-light fa-x fs--1"

@@ -277,7 +277,7 @@ html {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.4);
-  cursor: pointer;
+  /* cursor: pointer; */
   /* z-index: 1; */
   animation: fadeIn linear 0.1s;
 }

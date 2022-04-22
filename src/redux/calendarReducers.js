@@ -1,6 +1,7 @@
 import { NEXT_MONTH, PREV_MONTH, CURR_MONTH } from "./constants";
 
 const calendar = {
+  id: [],
   date: new Date(),
   day: new Date().getDate(),
   month: new Date().getMonth(),
@@ -25,11 +26,11 @@ const calendarReducer = (state = calendar, action) => {
     case CURR_MONTH:
       state = {
         ...state,
-        date: new Date(
-          new Date().getFullYear(),
-          new Date().getMonth(),
-          new Date().getDate()
-        ),
+        // date: new Date(
+        //   new Date().getFullYear(),
+        //   new Date().getMonth(),
+        //   new Date().getDate()
+        // ),
         month: new Date().getMonth(),
         year: new Date().getFullYear(),
       };

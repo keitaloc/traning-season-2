@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const RenderCalendar = () => {
+const RenderCalendar = ({ takeId }) => {
   console.log("-----calendar-----");
 
   const calendar = useSelector((state) => state.calendarReducer);
@@ -23,28 +23,45 @@ const RenderCalendar = () => {
   let dayArr = [];
 
   for (let index = 1; index <= lastDay; index++) {
-    dayArr.push({ id: currMonth, day: index });
+    dayArr.push({ month: currMonth, day: index });
     if (index <= firstDayIndex) {
-      dayArr.unshift({ id: currMonth - 1, day: prevLastDay - index + 1 });
+      dayArr.unshift({ month: currMonth - 1, day: prevLastDay - index + 1 });
     }
     if (index === lastDay) {
       for (let j = 1; j <= nextDays; j++) {
-        dayArr.push({ id: currMonth + 1, day: j });
+        dayArr.push({ month: currMonth + 1, day: j });
       }
     }
   }
 
-  const createId = (e) => {
-    const id = calendar.year + "" + calendar.month + 1 + "" + calendar.day;
-
-    console.log("click to get");
-
-    data.id.push(id);
-  };
-
   return (
     <div className="days height-custom grid-7 text-white" id="days">
-      {dayArr.map((obj, index) => {
+      {dayArr.map((obj) => {
+        let id =
+          obj.month === currMonth
+            ? calendar.year + "" + currMonth + "" + obj.day
+            : obj.month === currMonth + 1
+            ? calendar.year + "" + (currMonth + 1) + "" + obj.day
+            : calendar.year + "" + (currMonth - 1) + "" + obj.day;
+
+        let dateString =
+          obj.month === currMonth
+            ? new Date(
+                calendar.date.getFullYear(),
+                calendar.date.getMonth(),
+                obj.day
+              ).toDateString()
+            : obj.month === currMonth + 1
+            ? new Date(
+                calendar.date.getFullYear(),
+                calendar.date.getMonth() + 1,
+                obj.day
+              ).toDateString()
+            : new Date(
+                calendar.date.getFullYear(),
+                calendar.date.getMonth() - 1,
+                obj.day
+              ).toDateString();
         return (
           <div
             className={
@@ -54,13 +71,13 @@ const RenderCalendar = () => {
                 ? "day today w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
                 : "day w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
             }
-            key={index}
-            id={calendar.year + "" + calendar.month + 1 + "" + obj.day}
-            onClick={(e) => createId(calendar.year + calendar.month + obj.day)}
+            key={id}
+            id={dateString}
+            onClick={(e) => takeId(e)}
           >
             <div
               className={
-                obj.id === calendar.month + 1
+                obj.month === calendar.month + 1
                   ? "day-item"
                   : "day-item opacity--1"
               }
