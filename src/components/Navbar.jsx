@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { nextMonth, prevMonth } from "../redux/actions";
+import { nextMonth, prevMonth, currMonth } from "../redux/actions";
 
-const NavBar = ({openForm}) => {
+const NavBar = ({ openForm }) => {
   const calendar = useSelector((state) => state.calendarReducer);
   const dispatch = useDispatch();
 
@@ -21,8 +21,8 @@ const NavBar = ({openForm}) => {
     "December",
   ];
 
-  const currMonth = months[calendar.month];
-  const currDate = new Date().toDateString();
+  const month = months[calendar.month];
+  const currDate = calendar.date.toDateString();
 
   return (
     <div className="navbar d-flex justify-content-between align-items-center">
@@ -38,7 +38,7 @@ const NavBar = ({openForm}) => {
           id="next"
         ></i>
         <div className="date px-3">
-          <h1 id="month">{currMonth}</h1>
+          <h1 id="month">{month}</h1>
           <p className="dmy" id="dayOnPage">
             {currDate}
           </p>
@@ -59,8 +59,9 @@ const NavBar = ({openForm}) => {
         <button
           className="btn btn-light border-0 me-2 p-3 fw--5 mx-2 fs--2 w--10 btn-hover"
           id="monthBtn"
+          onClick={() => dispatch(currMonth())}
         >
-          Month
+          Today
         </button>
         <button
           className="btn btn-light border-0 p-3 fs--2 w--10 fw--5 btn-hover"
