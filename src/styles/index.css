@@ -156,6 +156,10 @@ html {
   width: 10rem;
 }
 
+.w--50{
+  width: 50px;
+}
+
 .fs--2 {
   font-size: calc(1.5rem + 0.5vw);
 }
@@ -164,8 +168,16 @@ html {
   width: 6rem;
 }
 
+.text-start {
+  text-align: start;
+}
+
 .fs--1 {
   font-size: calc(1.1rem + 0.5vw);
+}
+
+.fs--1-half {
+  font-size: calc(1rem + 0.5vw);
 }
 
 .today {

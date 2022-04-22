@@ -47,21 +47,21 @@ const RenderCalendar = ({ takeId }) => {
         let dateString =
           obj.month === currMonth
             ? new Date(
-                calendar.date.getFullYear(),
-                calendar.date.getMonth(),
+                calendar.year,
+                calendar.month,
                 obj.day
-              ).toDateString()
+              )
             : obj.month === currMonth + 1
             ? new Date(
-                calendar.date.getFullYear(),
-                calendar.date.getMonth() + 1,
+                calendar.year,
+                calendar.month + 1,
                 obj.day
-              ).toDateString()
+              )
             : new Date(
-                calendar.date.getFullYear(),
-                calendar.date.getMonth() - 1,
+                calendar.year,
+                calendar.month - 1,
                 obj.day
-              ).toDateString();
+              );
         return (
           <div
             className={
@@ -72,7 +72,7 @@ const RenderCalendar = ({ takeId }) => {
                 : "day w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
             }
             key={id}
-            id={dateString}
+            id={dateString.toDateString()}
             onClick={(e) => takeId(e)}
           >
             <div
