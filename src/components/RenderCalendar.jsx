@@ -119,7 +119,8 @@ const RenderCalendar = ({ takeId }) => {
                       return (
                         <p
                           className="fs--2 overflow-hidden task-name each-task"
-                          key={index}
+                          key={id + index}
+
                           // onClick={}
                         >
                           {data}

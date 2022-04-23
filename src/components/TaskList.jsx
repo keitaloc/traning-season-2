@@ -1,7 +1,7 @@
 import { useState } from "react";
 import getLocalStorageData from "../services/getLocalStorage";
 
-const TaskList = ({ id }) => {
+const TaskList = ({ id, deleteTask }) => {
   console.log("----task list----");
 
   let taskList = getLocalStorageData();
@@ -11,29 +11,18 @@ const TaskList = ({ id }) => {
     console.log("edit task");
   };
 
-  const deleteTask = (index, id) => {
-    console.log("delete task");
-
-    taskList[id].splice(index, 1);
-
-    console.log(taskList[id]);
-
-    // update task list after input new content
-    taskList = { ...taskList, [id]: taskList[id] };
-
-    // updated on localstorage
-    localStorage.setItem("New Task", JSON.stringify(taskList));
-  };
-
   return (
     <>
       {taskList[id].map((data, index) => {
+        console.log(data, index);
         return (
           <div
-            className="task-item d-flex justify-content-between align-items-center pb-2"
-            key={index}
+            className="task-item d-flex justify-content-between align-items-center pt-2"
+            key={id + index}
           >
-            <p className="me-3 fs--1-half text-start">{data}</p>
+            <p className="me-3 fs--1-half text-start" key={id + index}>
+              {data}
+            </p>
             <div>
               <button
                 className="btn btn-info w--50 mx-2 p-3 fs-3"

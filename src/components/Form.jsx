@@ -78,6 +78,19 @@ const Form = ({ isOpen, openForm, date }) => {
     setInput("");
   };
 
+  const deleteTask = (index, id) => {
+    console.log("delete task");
+
+    taskList[id].splice(index, 1);
+
+    console.log(taskList[id]);
+
+    taskList = { ...taskList };
+
+    // updated on localstorage
+    localStorage.setItem("New Task", JSON.stringify(taskList));
+  };
+
   return (
     <>
       {isOpen && (
@@ -114,7 +127,7 @@ const Form = ({ isOpen, openForm, date }) => {
             </div>
 
             <div className="scroll-body">
-              <TaskList id={id} />
+              <TaskList id={id} deleteTask={deleteTask} />
             </div>
           </div>
         </>
