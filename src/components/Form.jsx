@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import getLocalStorageData from "../services/getLocalStorage";
 import TaskList from "./TaskList";
 
-const Form = ({ isOpen, openForm, date }) => {
+const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
   const [input, setInput] = useState("");
   // const inputTask = useRef(null);
 
@@ -78,6 +78,8 @@ const Form = ({ isOpen, openForm, date }) => {
     // add to local storage
     localStorage.setItem("New Task", JSON.stringify(taskList));
 
+    updateTaskOnEachDay(true);
+
     setInput("");
   };
 
@@ -88,7 +90,7 @@ const Form = ({ isOpen, openForm, date }) => {
 
     // delete any obj has none value
     let data = Object.keys(taskList)
-      .filter((k) => taskList[k] != '')
+      .filter((k) => taskList[k] != "")
       .reduce((acc, k) => {
         acc[k] = taskList[k];
         return acc;
@@ -96,6 +98,8 @@ const Form = ({ isOpen, openForm, date }) => {
 
     // updated on localstorage
     localStorage.setItem("New Task", JSON.stringify(data));
+
+    updateTaskOnEachDay(true);
 
     setIsDeleted(true);
   };

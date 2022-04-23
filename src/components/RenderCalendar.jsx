@@ -6,7 +6,6 @@ const RenderCalendar = ({ takeId, openForm }) => {
   console.log("-----calendar-----");
 
   const calendar = useSelector((state) => state.calendarReducer);
-  const data = useSelector((state) => state.dataReducer);
 
   const prevLastDay = new Date(calendar.year, calendar.month, 0).getDate();
 
@@ -121,7 +120,6 @@ const RenderCalendar = ({ takeId, openForm }) => {
                         <p
                           className="fs--2 overflow-hidden task-name each-task"
                           key={id + index}
-
                           onClick={openForm}
                         >
                           {data}
