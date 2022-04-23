@@ -10,6 +10,15 @@ const Form = ({ isOpen, openForm, date }) => {
   //   inputTask.current.focus();
   // });
 
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  useEffect(() => {
+    setIsDeleted(false);
+  }, [isDeleted]);
+
+  console.log("1st render");
+  console.log(isDeleted);
+
   if (!date) {
     date = new Date().toDateString();
   }
@@ -85,10 +94,12 @@ const Form = ({ isOpen, openForm, date }) => {
 
     console.log(taskList[id]);
 
-    taskList = { ...taskList };
+    // taskList = { ...taskList };
 
     // updated on localstorage
     localStorage.setItem("New Task", JSON.stringify(taskList));
+
+    setIsDeleted(true);
   };
 
   return (
@@ -127,7 +138,7 @@ const Form = ({ isOpen, openForm, date }) => {
             </div>
 
             <div className="scroll-body">
-              <TaskList id={id} deleteTask={deleteTask} />
+              <TaskList id={id} isDeleted={isDeleted} deleteTask={deleteTask} />
             </div>
           </div>
         </>

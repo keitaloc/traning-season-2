@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getLocalStorageData from "../services/getLocalStorage";
 
-const TaskList = ({ id, deleteTask }) => {
+const TaskList = ({ id, isDeleted, deleteTask }) => {
   console.log("----task list----");
 
   let taskList = getLocalStorageData();
