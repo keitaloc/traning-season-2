@@ -1,21 +1,23 @@
 import getLocalStorageData from "../services/getLocalStorage";
 
-const TaskList = ({ id }) => {
+const TaskList = ({ id, deleteTask }) => {
   console.log("----task list----");
-  console.log(id);
-
-  
-  const editTask = (index, id) => {};
-  const deleteTask = (index, id) => {};
 
   const taskList = getLocalStorageData();
   if (!taskList[id]) return;
+
+  const editTask = (index, id) => {};
+
+  
 
   return (
     <>
       {taskList[id].map((data, index) => {
         return (
-          <div className="task-item d-flex justify-content-between align-items-center pb-2" key={index}>
+          <div
+            className="task-item d-flex justify-content-between align-items-center pb-2"
+            key={index}
+          >
             <p className="me-3 fs--1-half text-start">{data}</p>
             <div>
               <button
@@ -28,7 +30,7 @@ const TaskList = ({ id }) => {
               <button
                 className="btn btn-danger w--50 p-3 fs-3"
                 id="delete-btn"
-                onClick={deleteTask(index, id)}
+                onClick={() => deleteTask(index, id)}
               >
                 Delete
               </button>

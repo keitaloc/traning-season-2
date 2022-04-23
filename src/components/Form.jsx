@@ -9,6 +9,11 @@ const Form = ({ isOpen, openForm, date }) => {
     date = new Date().toDateString();
   }
 
+  const closedForm = () => {
+    setInput("");
+    openForm();
+  };
+
   console.log("----form----");
 
   const convertDate = (newDate) => {
@@ -59,6 +64,19 @@ const Form = ({ isOpen, openForm, date }) => {
     setInput("");
   };
 
+  const deleteTask = (index, id) => {
+    console.log("delete task");
+
+    console.log(taskList[id]);
+
+    taskList[id].splice(index, 1);
+
+    taskList = { ...taskList };
+
+    // updated on localstorage
+    localStorage.setItem("New Task", JSON.stringify(taskList));
+  };
+
   return (
     <>
       {isOpen && (
@@ -71,7 +89,7 @@ const Form = ({ isOpen, openForm, date }) => {
               </p>
               <i
                 className="btn scale text-white fa-light fa-x fs--1"
-                onClick={openForm}
+                onClick={closedForm}
               ></i>
             </div>
 
@@ -94,7 +112,7 @@ const Form = ({ isOpen, openForm, date }) => {
             </div>
 
             <div>
-              <TaskList id={id} />
+              <TaskList id={id} deleteTask={deleteTask} />
             </div>
           </div>
         </>
