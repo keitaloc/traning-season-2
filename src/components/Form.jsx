@@ -71,7 +71,7 @@ const Form = ({ isOpen, openForm, date }) => {
               </p>
               <i
                 className="btn scale text-white fa-light fa-x fs--1"
-                // onClick={openForm}
+                onClick={openForm}
               ></i>
             </div>
 

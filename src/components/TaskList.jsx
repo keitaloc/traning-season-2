@@ -4,10 +4,12 @@ const TaskList = ({ id }) => {
   console.log("----task list----");
   console.log(id);
 
+  
   const editTask = (index, id) => {};
   const deleteTask = (index, id) => {};
 
   const taskList = getLocalStorageData();
+  if (!taskList[id]) return;
 
   return (
     <>
