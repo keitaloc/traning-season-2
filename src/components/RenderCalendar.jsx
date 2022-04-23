@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import getLocalStorageData from "../services/getLocalStorage";
 
-const RenderCalendar = ({ takeId }) => {
+const RenderCalendar = ({ takeId, openForm }) => {
   console.log("-----calendar-----");
 
   const calendar = useSelector((state) => state.calendarReducer);
@@ -108,6 +108,7 @@ const RenderCalendar = ({ takeId }) => {
                   ? "day-item"
                   : "day-item opacity--1"
               }
+              onDoubleClick={openForm}
             >
               {obj.day}
             </div>

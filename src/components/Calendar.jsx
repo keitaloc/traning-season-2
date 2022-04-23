@@ -35,7 +35,7 @@ const Calendar = () => {
           <div>Fri</div>
           <div>Sat</div>
         </div>
-        <RenderCalendar takeId={takeId} />
+        <RenderCalendar takeId={takeId} openForm={openForm} />
       </div>
     </div>
   );
