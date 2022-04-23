@@ -97,7 +97,7 @@ const Form = ({ isOpen, openForm, date }) => {
             </div>
 
             <div className="" id="lists">
-              <TaskList id={id} />
+              <TaskList id={id} taskList={taskList} />
             </div>
           </div>
         </>

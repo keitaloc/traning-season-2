@@ -190,13 +190,13 @@ html {
 }
 
 .task-name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: start;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   background: #ffffff;
   color: #333;
   width: 95%;
-  height: 3rem;
+  height: 2.25rem;
   margin: 0.5rem auto;
 }
 
@@ -235,7 +235,7 @@ html {
 }
 
 .h--15 {
-  height: 14.5rem;
+  height: 13.5rem;
 }
 
 .opacity--1,

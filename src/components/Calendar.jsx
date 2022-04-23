@@ -18,9 +18,6 @@ const Calendar = () => {
     const idDay = e.currentTarget.id;
 
     setDate(idDay);
-
-    // calendar.id.push(idDay);
-    // console.log(calendar.id);
   };
 
   return (

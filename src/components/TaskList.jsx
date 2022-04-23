@@ -1,12 +1,6 @@
-import getLocalStorageData from "../services/getLocalStorage";
-
-const TaskList = ({ id }) => {
+const TaskList = ({ id, taskList }) => {
   console.log("----task list----");
   console.log(id);
-
-  const taskList = getLocalStorageData();
-
-  console.log(taskList);
 
   const editTask = (index, id) => {};
   const deleteTask = (index, id) => {};
@@ -14,8 +8,6 @@ const TaskList = ({ id }) => {
   return (
     <>
       {taskList[id].map((data, index) => {
-        console.log("----log data of each day----");
-        console.log(data);
         return (
           <>
             <div className="task-item d-flex justify-content-between align-items-center pb-2">
