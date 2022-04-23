@@ -113,7 +113,7 @@ const Form = ({ isOpen, openForm, date }) => {
               </button>
             </div>
 
-            <div>
+            <div className="scroll-body">
               <TaskList id={id} />
             </div>
           </div>

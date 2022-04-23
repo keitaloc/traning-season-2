@@ -109,6 +109,18 @@ html {
   background: rgba(105, 97, 97, 0.4);
 }
 
+.scroll-body {
+  height: 70vh;
+  max-height: calc(70vh - 200px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.scroll-body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .days {
   flex-wrap: wrap;
   padding: 0.2rem;
@@ -143,7 +155,7 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -90%);
+  transform: translate(-50%, -50%);
 }
 
 .close-form {
