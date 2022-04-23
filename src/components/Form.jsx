@@ -34,9 +34,14 @@ const Form = ({ isOpen, openForm, date }) => {
   };
 
   const addNewTask = () => {
+    console.log("add new task");
+
     if (!taskList[id]) {
       // create new data
       taskList[id] = [];
+
+      console.log(id);
+      console.log(taskList[id]);
 
       // push content from input
       taskList[id].push(input);
@@ -54,25 +59,19 @@ const Form = ({ isOpen, openForm, date }) => {
     setInput("");
   };
 
-  const showListTaskOnForm = () => {};
-
   return (
     <>
       {isOpen && (
         <>
           <div className="bg-overlay"></div>
-          <div
-            className="abs-center top--31 left-50 text-white w-50 p-5 z-index--9999 fs--2 form"
-            id="Form"
-          >
+          <div className="abs-center top--31 left-50 text-white w-50 p-5 z-index--9999 fs--2 form">
             <div className="d-flex justify-content-between align-items-center pt-1 pb-1">
               <p className="dmy" id="dayOnForm">
                 {date}
               </p>
               <i
                 className="btn scale text-white fa-light fa-x fs--1"
-                onClick={openForm}
-                id="close-btn"
+                // onClick={openForm}
               ></i>
             </div>
 
@@ -85,19 +84,17 @@ const Form = ({ isOpen, openForm, date }) => {
                   addInput(e);
                 }}
                 placeholder="add new task"
-                id="inputTask"
               />
               <button
                 className="btn btn-1 color-f pr-2 pl-2 fs--1 w--6"
-                id="addTask"
                 onClick={addNewTask}
               >
                 Add
               </button>
             </div>
 
-            <div className="" id="lists">
-              <TaskList id={id} taskList={taskList} />
+            <div>
+              <TaskList id={id} />
             </div>
           </div>
         </>

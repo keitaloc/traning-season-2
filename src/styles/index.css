@@ -99,8 +99,6 @@ html {
 
 .weekdays div {
   width: 100%;
-  height: 100%;
-  /* border: 1px solid; */
   font-size: 1.5rem;
   font-weight: 400;
 }
@@ -156,7 +154,7 @@ html {
   width: 10rem;
 }
 
-.w--50{
+.w--50 {
   width: 50px;
 }
 
@@ -235,7 +233,7 @@ html {
 }
 
 .h--15 {
-  height: 13.5rem;
+  height: 11.5rem;
 }
 
 .opacity--1,
@@ -280,7 +278,6 @@ html {
 }
 
 .bg-overlay {
-  /* visibility: hidden;   */
   position: fixed;
   width: 100%;
   height: 100%;
@@ -289,8 +286,8 @@ html {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.4);
-  /* cursor: pointer; */
-  /* z-index: 1; */
+  cursor: no-drop;
+  z-index: 1;
   animation: fadeIn linear 0.1s;
 }
 

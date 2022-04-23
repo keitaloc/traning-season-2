@@ -14,6 +14,9 @@ const Calendar = () => {
     setIsOpen(!isOpen);
   };
 
+  console.log("click to get id");
+  console.log(date);
+
   const takeId = (e) => {
     const idDay = e.currentTarget.id;
 
@@ -24,7 +27,7 @@ const Calendar = () => {
     <div className="calendar">
       <NavBar openForm={openForm} />
       <Form isOpen={isOpen} openForm={openForm} date={date} />
-      <div className="pt-4">
+      <div>
         <div className="weekdays grid-7 text-uppercase text-white">
           <div>Sun</div>
           <div>Mon</div>

@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import getLocalStorageData from "../services/getLocalStorage";
-import ShowTaskOnEachDay from "./ShowTaskOnEachDay";
 
 const RenderCalendar = ({ takeId }) => {
   console.log("-----calendar-----");
@@ -25,8 +24,6 @@ const RenderCalendar = ({ takeId }) => {
   const taskList = getLocalStorageData();
 
   let idArr = Object.keys(taskList);
-
-  console.log(taskList);
 
   let dayArr = [];
 
@@ -93,31 +90,47 @@ const RenderCalendar = ({ takeId }) => {
             ? new Date(calendar.year, calendar.month + 1, obj.day)
             : new Date(calendar.year, calendar.month - 1, obj.day);
         return (
-          <>
+          <div
+            className={
+              obj.day === calendar.day &&
+              currMonth === new Date().getMonth() + 1 &&
+              currYear === new Date().getFullYear()
+                ? "day today w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
+                : "day w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
+            }
+            key={id}
+            id={dateString.toDateString()}
+            onClick={(e) => takeId(e)}
+          >
             <div
               className={
-                obj.day === calendar.day &&
-                currMonth === new Date().getMonth() + 1 &&
-                currYear === new Date().getFullYear()
-                  ? "day today w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
-                  : "day w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
+                obj.month === calendar.month + 1
+                  ? "day-item"
+                  : "day-item opacity--1"
               }
-              key={id}
-              id={dateString.toDateString()}
-              onClick={(e) => takeId(e)}
             >
-              <div
-                className={
-                  obj.month === calendar.month + 1
-                    ? "day-item"
-                    : "day-item opacity--1"
-                }
-              >
-                {obj.day}
-              </div>
-              <ShowTaskOnEachDay date={obj.date} />
+              {obj.day}
             </div>
-          </>
+            {idArr.map((idDay) => {
+              if (id === idDay) {
+                return (
+                  <div key={id}>
+                    {taskList[id].map((data, index) => {
+                      return (
+                        <p
+                          className="fs--2 overflow-hidden task-name each-task"
+                          key={index}
+                          // onClick={}
+                        >
+                          {data}
+                        </p>
+                      );
+                    })}
+                  </div>
+                );
+              }
+            })}
+          </div>
         );
       })}
     </div>
