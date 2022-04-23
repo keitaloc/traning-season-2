@@ -122,7 +122,7 @@ const RenderCalendar = ({ takeId, openForm }) => {
                           className="fs--2 overflow-hidden task-name each-task"
                           key={id + index}
 
-                          // onClick={}
+                          onClick={openForm}
                         >
                           {data}
                         </p>
