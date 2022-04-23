@@ -1,14 +1,29 @@
+import { useState } from "react";
 import getLocalStorageData from "../services/getLocalStorage";
 
-const TaskList = ({ id, deleteTask }) => {
+const TaskList = ({ id }) => {
   console.log("----task list----");
 
-  const taskList = getLocalStorageData();
+  let taskList = getLocalStorageData();
   if (!taskList[id]) return;
 
-  const editTask = (index, id) => {};
+  const editTask = (index, id) => {
+    console.log("edit task");
+  };
 
-  
+  const deleteTask = (index, id) => {
+    console.log("delete task");
+
+    taskList[id].splice(index, 1);
+
+    console.log(taskList[id]);
+
+    // update task list after input new content
+    taskList = { ...taskList, [id]: taskList[id] };
+
+    // updated on localstorage
+    localStorage.setItem("New Task", JSON.stringify(taskList));
+  };
 
   return (
     <>
@@ -22,14 +37,12 @@ const TaskList = ({ id, deleteTask }) => {
             <div>
               <button
                 className="btn btn-info w--50 mx-2 p-3 fs-3"
-                id="delete-btn"
-                onClick={editTask(index, id)}
+                onClick={() => editTask(index, id)}
               >
                 Edit
               </button>
               <button
                 className="btn btn-danger w--50 p-3 fs-3"
-                id="delete-btn"
                 onClick={() => deleteTask(index, id)}
               >
                 Delete

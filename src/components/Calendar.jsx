@@ -12,6 +12,7 @@ const Calendar = () => {
 
   const openForm = () => {
     setIsOpen(!isOpen);
+    
   };
 
   console.log("click to get id");

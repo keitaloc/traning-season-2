@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import getLocalStorageData from "../services/getLocalStorage";
 import TaskList from "./TaskList";
 
 const Form = ({ isOpen, openForm, date }) => {
   const [input, setInput] = useState("");
+  // const inputTask = useRef(null);
+
+  // useEffect(() => {
+  //   inputTask.current.focus();
+  // });
 
   if (!date) {
     date = new Date().toDateString();
@@ -41,6 +46,16 @@ const Form = ({ isOpen, openForm, date }) => {
   const addNewTask = () => {
     console.log("add new task");
 
+    if (!date) {
+      alert("Have to choose day");
+      return;
+    }
+
+    if (!input) {
+      alert("Have to insert input!");
+      return;
+    }
+
     if (!taskList[id]) {
       // create new data
       taskList[id] = [];
@@ -60,21 +75,7 @@ const Form = ({ isOpen, openForm, date }) => {
     // add to local storage
     localStorage.setItem("New Task", JSON.stringify(taskList));
 
-    // after successfully added new task
     setInput("");
-  };
-
-  const deleteTask = (index, id) => {
-    console.log("delete task");
-
-    console.log(taskList[id]);
-
-    taskList[id].splice(index, 1);
-
-    taskList = { ...taskList };
-
-    // updated on localstorage
-    localStorage.setItem("New Task", JSON.stringify(taskList));
   };
 
   return (
@@ -102,6 +103,7 @@ const Form = ({ isOpen, openForm, date }) => {
                   addInput(e);
                 }}
                 placeholder="add new task"
+                // ref={inputTask}
               />
               <button
                 className="btn btn-1 color-f pr-2 pl-2 fs--1 w--6"
@@ -112,7 +114,7 @@ const Form = ({ isOpen, openForm, date }) => {
             </div>
 
             <div>
-              <TaskList id={id} deleteTask={deleteTask} />
+              <TaskList id={id} />
             </div>
           </div>
         </>
