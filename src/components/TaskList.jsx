@@ -8,13 +8,12 @@ const TaskList = ({ id, isDeleted, deleteTask }) => {
   if (!taskList[id]) return;
 
   const editTask = (index, id) => {
-    console.log("edit task");
+    // console.log("edit task");
   };
 
   return (
     <>
       {taskList[id].map((data, index) => {
-        console.log(data, index);
         return (
           <div
             className="task-item d-flex justify-content-between align-items-center pt-2"

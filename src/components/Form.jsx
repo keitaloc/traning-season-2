@@ -16,9 +16,6 @@ const Form = ({ isOpen, openForm, date }) => {
     setIsDeleted(false);
   }, [isDeleted]);
 
-  console.log("1st render");
-  console.log(isDeleted);
-
   if (!date) {
     date = new Date().toDateString();
   }
@@ -69,9 +66,6 @@ const Form = ({ isOpen, openForm, date }) => {
       // create new data
       taskList[id] = [];
 
-      console.log(id);
-      console.log(taskList[id]);
-
       // push content from input
       taskList[id].push(input);
     } else {
@@ -92,12 +86,16 @@ const Form = ({ isOpen, openForm, date }) => {
 
     taskList[id].splice(index, 1);
 
-    console.log(taskList[id]);
-
-    // taskList = { ...taskList };
+    // delete any obj has none value
+    let data = Object.keys(taskList)
+      .filter((k) => taskList[k] != '')
+      .reduce((acc, k) => {
+        acc[k] = taskList[k];
+        return acc;
+      }, {});
 
     // updated on localstorage
-    localStorage.setItem("New Task", JSON.stringify(taskList));
+    localStorage.setItem("New Task", JSON.stringify(data));
 
     setIsDeleted(true);
   };

@@ -15,9 +15,6 @@ const Calendar = () => {
     
   };
 
-  console.log("click to get id");
-  console.log(date);
-
   const takeId = (e) => {
     const idDay = e.currentTarget.id;
 
