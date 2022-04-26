@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  padding: 0;
+  overflow-y: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +12,104 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.calendar{
+  width: 100%;
+  max-width: 1250px;
+  background-color:#C5D8A4;
+  border-radius: 20px;
+  position: relative;
+}
+.hearder{
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.header-date{
+  display: flex;
+  justify-content: space-around ;
+  align-items: center;
+}
+.days{
+  cursor: pointer;
+}
+.view-days{
+  margin: 0 50px;
+}
+.content{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    text-align: center;
+}
+
+.content > div{
+    width: 100%;
+    height: 80px;
+    border: 2px solid #ffffff;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+.day .first-day{
+  opacity: 0.5;
+}
+.rank{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.first-day,
+.last-day{
+  color: rgb(133, 133, 133);
+}
+.todays{
+  background-color:#83BD75;
+  cursor: pointer;
+}
+
+.model{
+  width: 100%;
+  height: 100%;
+  padding:20px;
+  border-radius: 10px;
+}
+.model .item{
+  width: 500px;
+  height: 200px;
+  padding: 20px;
+  background-color: #4E944F;
+  position:absolute;
+  top: 20%;
+  left: 30%;
+}
+.item-backgrou{
+  position:fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color:#000000;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.active{
+  display: none;
+}
+/* @import url('./css/bootstrap.css'); */
+
+button{
+  cursor: pointer;
+}
+ul li{
+    display: flex;
+    justify-content: space-around ;
+    line-height:8px;
 }
