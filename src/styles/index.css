@@ -63,6 +63,13 @@ html {
   box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
 }
 
+.active,
+.days div:hover {
+  transition: 0.25s linear;
+  background: rgba(105, 97, 97, 0.4);
+  cursor: pointer;
+}
+
 .navbar {
   width: 100%;
   height: 12rem;
@@ -103,12 +110,6 @@ html {
   font-weight: 400;
 }
 
-.active,
-.bg-item:hover {
-  transition: 0.2s linear;
-  background: rgba(105, 97, 97, 0.4);
-}
-
 .scroll-body {
   height: 70vh;
   max-height: calc(70vh - 200px);
@@ -144,11 +145,6 @@ html {
 
 .border-item {
   border: 1px solid #fff;
-}
-
-.days div:hover:not(.today) {
-  /* border: 2px solid #fff; */
-  cursor: pointer;
 }
 
 .abs-center {
@@ -196,7 +192,7 @@ html {
 
 .today:hover {
   box-shadow: 0 0.3rem 1rem 0 #f7f4f4;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .task-name {
@@ -301,6 +297,13 @@ html {
   cursor: no-drop;
   z-index: 1;
   animation: fadeIn linear 0.1s;
+}
+
+.btn-show .btn-disable,
+.btn-show .btn-disable:disabled,
+.btn-show .btn-disable[disabled] {
+  cursor: no-drop;
+  background: rgba(145, 119, 119, 0.4);
 }
 
 @keyframes fadeIn {

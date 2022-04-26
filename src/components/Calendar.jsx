@@ -6,12 +6,7 @@ import RenderCalendar from "./RenderCalendar";
 const Calendar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState();
-
   const [isUpdate, setIsUpdate] = useState(false);
-
-  useEffect(() => {
-    setIsUpdate(false);
-  }, [isUpdate]);
 
   const openForm = () => {
     setIsOpen(!isOpen);
@@ -23,7 +18,7 @@ const Calendar = () => {
   };
 
   const updateTaskOnEachDay = (trueOrFalse) => {
-    setIsUpdate(trueOrFalse);
+    setIsUpdate(!trueOrFalse);
   };
 
   return (
@@ -33,6 +28,7 @@ const Calendar = () => {
         isOpen={isOpen}
         openForm={openForm}
         date={date}
+        isUpdate={isUpdate}
         updateTaskOnEachDay={updateTaskOnEachDay}
       />
       <div>
@@ -45,7 +41,7 @@ const Calendar = () => {
           <div>Fri</div>
           <div>Sat</div>
         </div>
-        <RenderCalendar takeId={takeId} openForm={openForm} />
+        <RenderCalendar takeId={takeId} openForm={openForm} date={date} />
       </div>
     </div>
   );

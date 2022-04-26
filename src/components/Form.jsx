@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import getLocalStorageData from "../services/getLocalStorage";
 import TaskList from "./TaskList";
 
-const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
+const Form = ({ isOpen, openForm, date, isUpdate, updateTaskOnEachDay }) => {
   const [input, setInput] = useState("");
   // const inputTask = useRef(null);
 
@@ -10,11 +10,14 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
   //   inputTask.current.focus();
   // });
 
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [taskList, setTaskList] = useState(getLocalStorageData());
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [editTaskIndex, setEditTaskIndex] = useState(null);
 
   useEffect(() => {
-    setIsDeleted(false);
-  }, [isDeleted]);
+    updateTaskOnEachDay(false);
+  }, [isUpdate]);
 
   if (!date) {
     date = new Date().toDateString();
@@ -22,10 +25,9 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
 
   const closedForm = () => {
     setInput("");
+    setIsEdit(false);
     openForm();
   };
-
-  console.log("----form----");
 
   const convertDate = (newDate) => {
     let day = newDate.getDate();
@@ -43,15 +45,11 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
   // convert date to string yyyymmdd
   let id = convertDate(newDate);
 
-  let taskList = getLocalStorageData();
-
   const addInput = (e) => {
     setInput(e.target.value);
   };
 
   const addNewTask = () => {
-    console.log("add new task");
-
     if (!date) {
       alert("Have to choose day");
       return;
@@ -67,13 +65,30 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
       taskList[id] = [];
 
       // push content from input
-      taskList[id].push(input);
+      setTaskList(taskList[id].push(input));
+    } else if (isEdit) {
+      console.log("isEdit: ", isEdit);
+
+      taskList[id].map((data, index) => {
+        console.log("data----", data);
+        if (index === editTaskIndex) {
+          console.log("-----99999-------", index);
+
+          // lag lag :v
+
+          console.log([...taskList[id] ]);
+
+          setTaskList([{ ...taskList[id], [index]: input }]);
+        }
+      });
+      console.log("data");
+      console.log(taskList[id]);
     } else {
-      taskList[id].push(input);
+      setTaskList(taskList[id].push(input));
     }
 
     // update task list after input new content
-    taskList = { ...taskList, [id]: taskList[id] };
+    setTaskList({ ...taskList, [id]: taskList[id] });
 
     // add to local storage
     localStorage.setItem("New Task", JSON.stringify(taskList));
@@ -81,11 +96,40 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
     updateTaskOnEachDay(true);
 
     setInput("");
+
+    setIsEdit(false);
+  };
+
+  const editTask = (data, index) => {
+    console.log("----edit task----");
+    console.log("data", data);
+
+    setInput(data);
+
+    setIsEdit(true);
+
+    setEditTaskIndex(index);
+
+    if (!input && isEdit) {
+      alert("Have to insert input!");
+      return;
+    }
+  };
+
+  //! pass id to know exactly what task is editing
+  const cancleEdit = (/* index, id */) => {
+    console.log("----cancle edit----");
+    // console.log("cancle edit----");
+    // taskList[id].map((data, i) => {
+    //   console.log("index", index, i);
+    //   if (i === index) {
+    //     setIsEdit(false);
+    //   }
+    // });
+    setIsEdit(false);
   };
 
   const deleteTask = (index, id) => {
-    console.log("delete task");
-
     taskList[id].splice(index, 1);
 
     // delete any obj has none value
@@ -100,8 +144,6 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
     localStorage.setItem("New Task", JSON.stringify(data));
 
     updateTaskOnEachDay(true);
-
-    setIsDeleted(true);
   };
 
   return (
@@ -110,7 +152,7 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
         <>
           <div className="bg-overlay"></div>
           <div className="abs-center top--31 left-50 text-white w-50 p-5 z-index--9999 fs--2 form">
-            <div className="d-flex justify-content-between align-items-center pt-1 pb-1">
+            <div className="d-flex justify-content-between align-items-center">
               <p className="dmy" id="dayOnForm">
                 {date}
               </p>
@@ -131,16 +173,23 @@ const Form = ({ isOpen, openForm, date, updateTaskOnEachDay }) => {
                 placeholder="add new task"
                 // ref={inputTask}
               />
+
               <button
                 className="btn btn-1 color-f pr-2 pl-2 fs--1 w--6"
                 onClick={addNewTask}
               >
-                Add
+                {!isEdit ? "Add" : "Save"}
               </button>
             </div>
 
             <div className="scroll-body">
-              <TaskList id={id} isDeleted={isDeleted} deleteTask={deleteTask} />
+              <TaskList
+                id={id}
+                editTask={editTask}
+                deleteTask={deleteTask}
+                isEdit={isEdit}
+                cancleEdit={cancleEdit}
+              />
             </div>
           </div>
         </>

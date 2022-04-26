@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import getLocalStorageData from "../services/getLocalStorage";
 
-const RenderCalendar = ({ takeId, openForm }) => {
-  console.log("-----calendar-----");
-
+const RenderCalendar = ({ takeId, openForm, date }) => {
   const calendar = useSelector((state) => state.calendarReducer);
 
   const prevLastDay = new Date(calendar.year, calendar.month, 0).getDate();
@@ -95,11 +93,14 @@ const RenderCalendar = ({ takeId, openForm }) => {
               currMonth === new Date().getMonth() + 1 &&
               currYear === new Date().getFullYear()
                 ? "day today w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
+                : date === dateString.toDateString()
+                ? "day active w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
                 : "day w-100 h--15 overflow-hidden bg-item border-item d-flex flex-column"
             }
             key={id}
             id={dateString.toDateString()}
             onClick={(e) => takeId(e)}
+            onDoubleClick={openForm}
           >
             <div
               className={
@@ -113,19 +114,32 @@ const RenderCalendar = ({ takeId, openForm }) => {
             </div>
             {idArr.map((idDay) => {
               if (id === idDay) {
+                let num = 0;
                 return (
                   <div key={id}>
                     {taskList[id].map((data, index) => {
-                      return (
-                        <p
-                          className="fs--2 overflow-hidden task-name each-task"
-                          key={id + index}
-                          onClick={openForm}
-                        >
-                          {data}
-                        </p>
-                      );
+                      num++;
+                      if (index < 2) {
+                        return (
+                          <p
+                            className="fs--2 overflow-hidden task-name each-task"
+                            key={id + index}
+                            onClick={openForm}
+                          >
+                            {data}
+                          </p>
+                        );
+                      }
                     })}
+                    {num > 2 && (
+                      <p
+                        className="fs--2 overflow-hidden task-name each-task"
+                        key={id}
+                        onClick={openForm}
+                      >
+                        +{num - 2} more...
+                      </p>
+                    )}
                   </div>
                 );
               }
